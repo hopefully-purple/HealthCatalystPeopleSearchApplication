@@ -6,7 +6,7 @@
             var name = document.getElementById('<%=txtname.ClientID %>').value;
             var address = document.getElementById('<%=txtaddress.ClientID %>').value;
 
-            PageMethods.ProcessIT(name, address, onSucess, onError); 
+            personList.ProcessIT(name, address, onSucess, onError); 
             function onSucess(result) {
                 alert(result);
             }
