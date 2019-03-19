@@ -1,10 +1,28 @@
 <html>
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-/* make it look pleasing!*/  
-</style>
+  <head runat="server">
+    <title></title>
+    <script type="text/javascript">
+        function HandleIT() {
+            var name = document.getElementById('<%=txtname.ClientID %>').value;
+            var address = document.getElementById('<%=txtaddress.ClientID %>').value;
+
+            PageMethods.ProcessIT(name, address, onSucess, onError); 
+            function onSucess(result) {
+                alert(result);
+            }
+
+            function onError(result) {
+                alert('Something wrong.');
+            }
+        }
+    </script>
 </head>
+<!-- <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style> -->
+<!-- /* make it look pleasing!*/  
+</style>
+</head> -->
 <body>
 
 <h1> Search for People!</h1>
@@ -15,6 +33,20 @@
   
   <dialog id="listOfPeople"> </dialog>
   <dialog id="personInfo"></dialog>
+  
+  <p>--------------------------------------------</p>
+  
+  <div>
+        <p>Say bye-bey to Postbacks.</p>
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
+
+        <asp:TextBox ID="txtname" runat="server"></asp:TextBox>
+        <br />
+        <asp:TextBox ID="txtaddress" runat="server"></asp:TextBox>
+        <br />
+        <asp:Button ID="btnCreateAccount" runat="server" Text="Signup" OnClientClick="HandleIT(); return false;" />
+    </div>
   
 <script>
   //This is where we want to pull in the code from the personList class I think
