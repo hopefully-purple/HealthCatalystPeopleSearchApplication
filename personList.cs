@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using PeopleSearchApplication;
+using System.Web.Services;
 
 namespace PeopleSearchApplicationT
 {
