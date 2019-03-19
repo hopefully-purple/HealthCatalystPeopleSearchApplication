@@ -1,7 +1,9 @@
 <html>
 <head>
 
-
+<style>
+/* make it look pleasing!*/  
+</style>
 </head>
 <body>
 
@@ -9,6 +11,29 @@
 
 <p> Type in the name of the person you are looking for</p>
 <input id="searchBar" type="text"/>
+  <button id="searchButton">Search</button>
+  
+  <dialog id="listOfPeople"> </dialog>
+  <dialog id="personInfo"></dialog>
+  
+<script>
+  //This is where we want to pull in the code from the personList class I think
+  
+  $("#searchBar").click(function() { //Unsure if this is the correct call when user begins typing
+    //When user types anything, a drop down list appears? 
+    //Or in a box, the list of names that match appear, like in geocache
+  });
+  
+  $("#searchButton").click(function() {
+    //When the search button is clicked, display all the items that match the text
+    //Do the whole "slow search" display?
+  });
+  
+  //Make each item selectable, and when an item is selected, display in next box the info
+  //dialog boxes??
+  
+  
+</script>
 
 
 </body>
