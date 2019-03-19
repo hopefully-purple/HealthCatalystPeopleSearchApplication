@@ -24,7 +24,6 @@ namespace PeopleSearchApplication
          * Interests
          * Picture
          * 
-         *  Cache c = new Cache("GCRQWK\tOld Three Tooth\tgeocadet\t3.5\t3\tN40 45.850\tW111 48.045");
          * Person p = new Person("Pollyanna Perkins\t144 EdBrook Ave, Springs, AZ\t24\tMountain Biker, Finger Knitter\t<insert pic here>");       
          *
           */
@@ -55,7 +54,6 @@ namespace PeopleSearchApplication
 
         public Person()
         {
-
             this.ToString();
             this.GetName();
             this.GetAddress();
