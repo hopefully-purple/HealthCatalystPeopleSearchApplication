@@ -54,7 +54,7 @@ First name: <input type="text" id="txt1" onkeyup="showHint(this.value)">
 <p>Suggestions: <span id="txtHint"></span></p> 
 
 <script>
-  debugger;
+ 
 function showHint(str) {
   var xhttp;
   if (str.length == 0) { 
@@ -67,6 +67,9 @@ function showHint(str) {
       document.getElementById("txtHint").innerHTML = this.responseText;
     }
   };
+   if (xhttp) {
+    debugger;
+   }
   xhttp.open("GET", "gethint.aspx?q="+str, true);
   xhttp.send();
 }
