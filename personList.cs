@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.IO;
 using PeopleSearchApplication;
-using System.Web.Services;
 
 namespace PeopleSearchApplicationT
 {
@@ -72,15 +71,6 @@ namespace PeopleSearchApplicationT
             allPeople.Sort(myComparer);
 
         }
-        /*
-        *This is code from the article to experiment with
-        */
-        [WebMethod]
-    public static string ProcessIT(string name, string address)
-    {
-        string result = "Welcome Mr. " + name + ". Your address is '" + address + "'.";
-        return result;
-    }
 
         /*
         * Sets the title constraint to the specified value. 
