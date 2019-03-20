@@ -1,28 +1,9 @@
-<html>
-  <head runat="server">
-    <title></title>
-    <script type="text/javascript">
-        function HandleIT() {
-            var name = document.getElementById('<%=txtname.ClientID %>').value;
-            var address = document.getElementById('<%=txtaddress.ClientID %>').value;
-
-            personList.ProcessIT(name, address, onSucess, onError); 
-            function onSucess(result) {
-                alert(result);
-            }
-
-            function onError(result) {
-                alert('Something wrong.');
-            }
-        }
-    </script>
-</head>
-<!-- <head>
+ <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style> -->
-<!-- /* make it look pleasing!*/  
+<style> 
+ /* make it look pleasing!*/  
 </style>
-</head> -->
+</head> 
 <body>
 
 <h1> Search for People!</h1>
@@ -36,30 +17,18 @@
   
   <p>--------------------------------------------</p>
   
-  <div>
-        <p>Say bye-bey to Postbacks.</p>
-
-        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
-
-        <asp:TextBox ID="txtname" runat="server"></asp:TextBox>
-        <br />
-        <asp:TextBox ID="txtaddress" runat="server"></asp:TextBox>
-        <br />
-        <asp:Button ID="btnCreateAccount" runat="server" Text="Signup" OnClientClick="HandleIT(); return false;" />
-    </div>
-  
 <script>
   //This is where we want to pull in the code from the personList class I think
   
-//   $("#searchBar").click(function() { //Unsure if this is the correct call when user begins typing
-//     //When user types anything, a drop down list appears? 
-//     //Or in a box, the list of names that match appear, like in geocache
-//   });
+  $("#searchBar").click(function() { //Unsure if this is the correct call when user begins typing
+    //When user types anything, a drop down list appears? 
+    //Or in a box, the list of names that match appear, like in geocache
+  });
   
-//   $("#searchButton").click(function() {
-//     //When the search button is clicked, display all the items that match the text
-//     //Do the whole "slow search" display?
-//   });
+  $("#searchButton").click(function() {
+    //When the search button is clicked, display all the items that match the text
+    //Do the whole "slow search" display?
+  });
   
   //Make each item selectable, and when an item is selected, display in next box the info
   //dialog boxes??
