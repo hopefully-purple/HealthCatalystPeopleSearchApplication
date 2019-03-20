@@ -1,4 +1,6 @@
- <head>
+<%@ Page Language="C#" CodeFile="personList.cs" Inherits="Page" %> 
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style> 
  /* make it look pleasing!*/  
@@ -16,6 +18,8 @@
   <dialog id="personInfo"></dialog>
   
   <p>--------------------------------------------</p>
+ 
+ <asp:button id="MyButton" text="Click Here" onclick="SubmitBtn_Click" runat="server"/>
   
 <script>
   //This is where we want to pull in the code from the personList class I think
