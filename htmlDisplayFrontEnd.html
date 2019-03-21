@@ -1,44 +1,4 @@
-<!DOCTYPE html>
 <html>
-<body>
-
-<h1>The XMLHttpRequest Object</h1>
-
-<h3>Start typing a name in the input field below:</h3>
-
-<form action=""> 
-First name: <input type="text" id="txt1" onkeyup="showHint(this.value)">
-</form>
-
-<p>Suggestions: <span id="txtHint"></span></p> 
-
-<script>
- 
-function showHint(str) {
-  var xhttp;
-  if (str.length == 0) { 
-    document.getElementById("txtHint").innerHTML = "";
-    return;
-  }
-  xhttp = new XMLHttpRequest();
-//    if (xhttp) {
-//     debugger;
-//    }
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("txtHint").innerHTML = this.responseText;
-    }
-  };
-  
-  xhttp.open("GET", "gethint.aspx?q="+str, true);
-  xhttp.send();
-}
-</script>
-
-</body>
-</html>
-
-<!-- <html>
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style> 
@@ -59,6 +19,11 @@ function showHint(str) {
   <p>--------------------------------------------</p>
   
 <script>
+ 
+ var person = { name = "
+ 
+ 
+ 
   //This is where we want to pull in the code from the personList class I think
   
   $("#searchBar").click(function() { //Unsure if this is the correct call when user begins typing
@@ -77,4 +42,4 @@ function showHint(str) {
   
 </script>
 </body>
-</html> -->
+</html>
