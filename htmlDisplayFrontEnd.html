@@ -19,12 +19,8 @@
   <p>--------------------------------------------</p>
   
 <script>
- 
- var person = { name = "
- 
- 
- 
-  //This is where we want to pull in the code from the personList class I think
+  
+    //This is where we want to pull in the code from the personList class I think
   
   $("#searchBar").click(function() { //Unsure if this is the correct call when user begins typing
     //When user types anything, a drop down list appears? 
@@ -38,8 +34,74 @@
   
   //Make each item selectable, and when an item is selected, display in next box the info
   //dialog boxes??
-  
-  
+ 
+  //-------------------------------------Object Classes------------------------
+ class Person {
+  constructor (attributes) {
+    var attr = attributes.split("\t");
+
+    this.name = attr[0];
+    this.address = attr[1];
+    this.age = attr[2];
+    this.interests = attr[3];
+    this.picture = attr[4];
+  }
+
+  getName() {
+    return this.name;
+  }
+  getAddress() {
+    return this.address;
+  }
+  getAge() {
+    return this.age;
+  }
+  getInterests() {
+    return this.interests;
+  }
+  getPicture() {
+    return this.picture;
+  }
+}
+
+class PersonList {
+  titleConstraint = "";
+  constructor(people) {
+    this.people = people.split("\n");
+    this.allPeople = [];
+    var lineNum = 0;
+    var next = this.people.shift();
+    while (next) {
+      lineNum++;
+      this.allPeople.push(new Person(next));
+      next = this.people.shift();
+    }
+
+    this.setTitleConstraint("");
+    this.allPeople.sort(function(a, b){return a.getName().localeCompare(b.getName())});
+
+  }
+
+  setTitleConstraint(title) {
+    this.titleConstraint = title;
+  }
+
+  select() {
+    var people = [];
+    var items = this.allPeople;
+    var i;
+    for (i = 0; i < items.length; i++) {
+      if (items[i].getName().toLowerCase().includes(this.titleConstraint.toLowerCase())) {
+        people.push(items[i]);
+      }
+    }
+
+   people.sort(function(a, b){return a.getName().localeCompare(b.getName())});
+    return people;
+  }
+
+}
+   
 </script>
 </body>
 </html>
