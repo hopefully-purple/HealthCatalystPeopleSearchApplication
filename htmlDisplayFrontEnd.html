@@ -1,5 +1,6 @@
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style> 
  /* make it look pleasing!*/  
@@ -8,32 +9,65 @@
 <body>
 
 <h1> Search for People!</h1>
+  
+  <h3 id="fileHeader"> Please enter in a list of people</h3>
+<input type="file" id="myFile">
+<button id="generateList"> Generate List! </button>
 
 <p> Type in the name of the person you are looking for</p>
-<input id="searchBar" type="text"/>
-  <button id="searchButton">Search</button>
+<input type="text" id="myInput" onkeyup="getPeople()" placeholder="Search for names.." title="Type in a name">
+<div class="list">
+  <ul id="myUL" onclick="profile()">
+</div>
   
-  <dialog id="listOfPeople"> </dialog>
-  <dialog id="personInfo"></dialog>
+<!--   <dialog id="listOfPeople"> </dialog>
+  <dialog id="personInfo"></dialog> -->
   
   <p>--------------------------------------------</p>
   
 <script>
+  //This block reads in a file and is supposed to create a new PersonList Object
+  var input = document.getElementById("myFile");
+  var listOfPeople;
+  input.addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    var myFile = this.files[0];
+    var reader = new FileReader();
+    reader.addEventListener('load', function (e) {
+      // if (reader) {
+      //   debugger;
+      // }
+      //Here is where the PersonList object is created.
+      listOfPeople = new PersonList("" + e.target.result);
+    });
+    reader.readAsBinaryString(myFile);
+  }
+});
   
-    //This is where we want to pull in the code from the personList class I think
-  
-  $("#searchBar").click(function() { //Unsure if this is the correct call when user begins typing
-    //When user types anything, a drop down list appears? 
-    //Or in a box, the list of names that match appear, like in geocache
+  //I don't know if I'll keep this button, but for now it helps me see the PersonList
+//object that was created.
+$("#generateList").click(function() {
+  console.log(listOfPeople);
   });
   
-  $("#searchButton").click(function() {
-    //When the search button is clicked, display all the items that match the text
-    //Do the whole "slow search" display?
-  });
-  
-  //Make each item selectable, and when an item is selected, display in next box the info
-  //dialog boxes??
+  //This generates the list of people that match what the user is typing
+function getPeople() {
+  var input, filter, ul, li, i, a, workingList;
+  input = document.getElementById("myInput");
+  filter = input.value.toLowerCase();
+  ul = document.getElementById("myUL");
+  li = document.createElement("li");
+  // if (filter) {
+  //   debugger;
+  // }
+  listOfPeople.setTitleConstraint(filter);
+//For each person in listOfPeople, create a new list item on the document
+  for(i = 0; i < listOfPeople.select().length; i++) {
+    workingList = listOfPeople.select();
+    li.appendChild(document.createTextNode(workingList[i].getName()));
+    ul.appendChild(li);
+  }
+}
  
   //-------------------------------------Object Classes------------------------
  class Person {
