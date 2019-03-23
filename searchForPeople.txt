@@ -1,0 +1,258 @@
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> THIS is a great website</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <style>
+    * {
+  box-sizing: border-box;
+}
+
+#myInput, #myInput2 {
+  /*background-image: url('/css/searchicon.png');*/
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL2 {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL2 li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  width: 40%;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL2 li a:hover:not(.header) {
+  background-color: #eee;
+}
+    </style>
+
+  </head>
+
+<body>
+
+<h1> This is the title</h1>
+
+<!-- From here to line 65 is what I am currently working on -->
+<h3 id="fileHeader"> Please enter in a list of people</h3>
+<input type="file" id="myFile">
+<button id="generateList"> Generate List! </button>
+
+<h2>Search for a person!</h2>
+
+<input type="text" id="myInput" onkeyup="getPeople()" placeholder="Search for names.." title="Type in a name">
+<div class="list">
+  <ul id="myUL" onclick="profile()">
+</div>
+
+<!-- This section shows what I want the above section to look like eventually.
+This is where I've been having trouble with the problem from yesterday. -->
+<input type="text" id="myInput2" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<ul id="myUL2" onclick="profile()">
+  <li id="Adele"><a href="#">Adele</a></li>
+  <li><a href="#">Agnes</a></li>
+
+  <li><a href="#">Billy</a></li>
+  <li><a href="#">Bob</a></li>
+
+  <li><a href="#">Calvin</a></li>
+  <li><a href="#">Christina</a></li>
+  <li><a href="#">Cindy</a></li>
+</ul>
+<p id="selectedName">Name Selected</p>
+
+
+<script>
+
+//This block reads in a file and is supposed to create a new PersonList Object
+var input = document.getElementById("myFile");
+var listOfPeople;
+input.addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    var myFile = this.files[0];
+    var reader = new FileReader();
+    reader.addEventListener('load', function (e) {
+      // if (reader) {
+      //   debugger;
+      // }
+      //Here is where the PersonList object is created.
+      listOfPeople = new PersonList("" + e.target.result);
+    });
+    reader.readAsBinaryString(myFile);
+  }
+});
+
+//I don't know if I'll keep this button, but for now it helps me see the PersonList
+//object that was created.
+$("#generateList").click(function() {
+  console.log(listOfPeople);
+  });
+
+//--This is where I make the call to output the name of the clicked item
+//--This is the first problem I'm working on
+function profile(){
+	document.getElementById("selectedName").innerHTML = $("#Adele").val();
+}
+
+//This generates the list of people that match what the user is typing
+function getPeople() {
+  var input, filter, ul, li, i, a, workingList;
+  input = document.getElementById("myInput");
+  filter = input.value.toLowerCase();
+  ul = document.getElementById("myUL");
+  li = document.createElement("li");
+  // if (filter) {
+  //   debugger;
+  // }
+  listOfPeople.setTitleConstraint(filter);
+//For each person in listOfPeople, create a new list item on the document
+  for(i = 0; i < listOfPeople.select().length; i++) {
+    workingList = listOfPeople.select();
+    li.appendChild(document.createTextNode(workingList[i].getName()));
+    ul.appendChild(li);
+  }
+}
+
+//This is the code for the line 67 search bar that filters the list
+//I don't need to use this exact code for my real search bar because the PersonList class
+//already has two methods that set a filter and creates a list through the filter.
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById("myInput2");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL2");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+//-------------------------------------OBJECT CLASSES--------------------------
+class Person {
+  //Take in a string of attributes and separate them by tabs into an array
+  constructor (attributes) {
+    //--So when I run the debugging tests below this section, the attributes are split very nicely.
+    //--But I've debugged and walked through when the listOfPeople is created (line 97) and
+    //--it splits the file by \n wonderfully in the PersonList class, but then it gets here
+    //--and it doesn't split at all. Name becomes the whole line and the others are undefined
+    //--This is the second problem I'm working on.
+    var attr = attributes.split("\t");
+
+    this.name = attr[0];
+    this.address = attr[1];
+    this.age = attr[2];
+    this.interests = attr[3];
+    this.picture = attr[4];
+  }
+
+  getName() {
+    return this.name;
+  }
+  getAddress() {
+    return this.address;
+  }
+  getAge() {
+    return this.age;
+  }
+  getInterests() {
+    return this.interests;
+  }
+  getPicture() {
+    return this.picture;
+  }
+}
+
+class PersonList {
+  titleConstraint = "";
+  constructor(people) {
+    this.people = people.split("\n");
+    this.allPeople = [];
+    var lineNum = 0;
+    var next = this.people.shift();
+    while (next) {
+      lineNum++;
+      this.allPeople.push(new Person(next));
+      next = this.people.shift();
+    }
+
+    this.setTitleConstraint("");
+    this.allPeople.sort(function(a, b){return a.getName().localeCompare(b.getName())});
+
+  }
+
+  setTitleConstraint(title) {
+    this.titleConstraint = title;
+  }
+
+//Select Person objects that contain the titleConstraint and return that list
+  select() {
+    var people = [];
+    var items = this.allPeople;
+    var i;
+    for (i = 0; i < items.length; i++) {
+      if (items[i].getName().toLowerCase().includes(this.titleConstraint.toLowerCase())) {
+        people.push(items[i]);
+      }
+    }
+
+   people.sort(function(a, b){return a.getName().localeCompare(b.getName())});
+    return people;
+  }
+
+}
+
+
+//--------------------------TESTING AND DEBUGGING!!-------------------------------
+
+var p1 = new Person("Sugar\t1779 W Eagle Valley, Springs, AZ\t70\tSnuggles and stealing Captain's food\t<insert pic>");
+console.log(p1.getName());
+console.log(p1.getAge());
+
+//debugger;
+var list = new PersonList("Pollyanna Perkins\t144 EdBrook Ave, Springs, CA\t24\tMountain Biker, Finger Knitter\t<insert pic here>\n"
+                + "Will Treaty\tHut in the Forest, Redmont Fief, Araluen\t45\tTop Ranger, likes coffee\t<insert pic here>\n"
+                + "Hal Mikkelson\tRestaurant owned by the Araluen, Hallasholm, Skandia\t25\tBuilds ships and weapons\t<insert pic here>\n"
+                + "Madelyn\tCastle Araluen, Araluen\t18\tPrincess and secretly a fourth-year apprentice Ranger\t<insert pic here\n");
+
+
+list.setTitleConstraint("Will");
+console.log(list.select());
+list.setTitleConstraint("ll");
+console.log(list.select());
+list.setTitleConstraint("M");
+console.log(list.select());
+</script>
+
+  </body>
+
+</html>
+<!--
+Pollyanna Perkins\t144 EdBrook Ave, Springs, AZ\t24\tMountain Biker, Finger Knitter\t<insert pic here>\nWill Treaty\tHut in the Forest, Redmont Fief, Araluen\t45\tTop Ranger, likes coffee\t<insert pic here>\nHal Mikkelson\tRestaurant owned by the Araluen, Hallasholm, Skandia\t25\tBuilds ships and weapons\t<insert pic here>\nMadelyn\tCastle Araluen, Araluen\t18\tPrincess and secretly a fourth-year apprentice Ranger\t<insert pic here\n
+-->
