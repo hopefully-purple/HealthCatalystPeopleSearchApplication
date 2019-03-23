@@ -1,4 +1,4 @@
-Pollyanna Perkins\\t144 EdBrook Ave, Springs, AZ\\t24\\tMountain Biker, Finger Knitter\\t<insert pic here>
-Will Treaty\\tHut in the Forest, Redmont Fief, Araluen\\t45\\tTop Ranger, likes coffee\\t<insert pic here>
-Hal Mikkelson\\tRestaurant owned by the Araluen, Hallasholm, Skandia\\t25\\tBuilds ships and weapons\\t<insert pic here>
-Madelyn\\tCastle Araluen, Araluen\\t18\\tPrincess and secretly a fourth-year apprentice Ranger\\t<insert pic here>
+Pollyanna Perkins \t 144 EdBrook Ave, Springs, AZ \t 24 \t Mountain Biker, Finger Knitter \t <insert pic here>
+Will Treaty \t Hut in the Forest, Redmont Fief, Araluen \t 45 \t Top Ranger, likes coffee \t <insert pic here>
+Hal Mikkelson \t Restaurant owned by the Araluen, Hallasholm, Skandia \t 25 \t Builds ships and weapons \t <insert pic here>
+Madelyn \t Castle Araluen, Araluen \t 18 \t Princess and secretly a fourth-year apprentice Ranger \t <insert pic here>
