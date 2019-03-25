@@ -4,27 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> The People Search Application</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Lato|Merriweather|Noto+Sans+JP|Noto+Sans+TC|Noto+Serif|Old+Standard+TT|Open+Sans|Quicksand|Roboto+Condensed|Source+Serif+Pro" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato|Merriweather|Source+Serif+Pro" rel="stylesheet">
 <style>
-
-/*
-font-family: 'Open Sans', sans-serif; unsure
-font-family: 'Lato', sans-serif; not special
-font-family: 'Roboto Condensed', sans-serif; like big, don't like small
-font-family: 'Merriweather', serif; I reeeeeaaaallllyyy like this, choosing this, leaving the rest just in case.
-font-family: 'Noto Serif', serif;
-font-family: 'Quicksand', sans-serif;
-font-family: 'Noto Sans JP', sans-serif;
-font-family: 'Source Serif Pro', serif;
-font-family: 'Noto Sans TC', sans-serif;
-font-family: 'Old Standard TT', serif;
-*/
 
 * {
   box-sizing: border-box;
 }
 
-/*------------------*/
 #title {
   font-size: 75px;
   text-align: center;
@@ -35,44 +21,24 @@ font-family: 'Old Standard TT', serif;
   display: inline;
 }
 
-/*------------------*/
 #checkBoxClass {
   text-align: center;
   font-size: 50px;
   font-family: 'Merriweather', serif;
 }
 
-/*------------------*/
  #chooseFileText {
   text-align: center;
   font-family: 'Merriweather', serif;
 }
 
-/*------------------*/
 h2 {
   font-size: 50px;
   text-align: center;
   font-family: 'Merriweather', serif;
 }
 
-/* #add {
-  font-size: 25px;
-  border-radius: 7px;
-  cursor: pointer;
-  transition-duration: 0.4s;
-  box-shadow: 2px 2px #d9d9d9;
-  float: right;
-  position: relative;
-  right: 225px;
-}
-
-#add:hover {
-  background-Color: #d9d9d9
-} */
-
-/*------------------*/
 #myInput {
-  /*background-image: url('/css/searchicon.png');*/
   background-position: 10px 12px;
   background-repeat: no-repeat;
   width: 50%;
@@ -85,7 +51,6 @@ h2 {
   font-family: 'Merriweather', serif;
 }
 
-/*------------------*/
 #myUL li {
   border: 1px solid #ddd;
   margin-top: -1px; /* Prevent double borders */
@@ -124,7 +89,6 @@ h2 {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
   border-radius: 50%;
-  /*width and height 120px*/
   width: 47px;
   height: 47px;
   animation: spin 2s linear infinite;
@@ -140,7 +104,6 @@ h2 {
   100% { transform: rotate(360deg); }
 }
 
-/*------------------*/
 .boxed {
   display: none;
   border: 1px solid black ;
@@ -152,24 +115,20 @@ h2 {
   margin-bottom: 12px;
   float: right;
   position: absolute;
-  /* 445 by 650*/
   top: 465px; left: 650px;
   font-family: 'Merriweather', serif;
 }
 
 .boxed img {
-  /*100%*/
   width: 95%;
 }
 .boxed div:first-child {
-  /*33%*/
   width: 33%;
   float: left;
 }
 
 .boxed div:2th-child {
   float: right;
-  /* 66% */
   width: 66%;
 }
 
@@ -178,7 +137,6 @@ h2 {
 }
 
 .boxed div:last-child {
-  /* 100% */
   width: 100%;
   clear: both;
 }
@@ -202,7 +160,6 @@ h2 {
 <input type="text" id="myInput" onkeyup="getPeople()" placeholder="Search for names.." title="Type in a name">
     <button type="submit" id="searchButton"><i class="fa fa-search"></i></button>
     <div class="loader"></div>
-    <!-- <button id="add"> + </button> -->
 <div class="list">
   <ul id="myUL" >
   </ul>
@@ -254,26 +211,6 @@ input.addEventListener("change", function () {
     reader.readAsBinaryString(myFile);
   }
 });
-
-//----------------------------Add someone to the list --------
-// $("#add").click(function() {
-//   console.log(listOfPeople);
-//   var newName = prompt("Please enter a name", "Severus Snape");
-//   if (newName == null || newName == "") {
-//     console.log("User cancelled this prompt");
-//   } else {
-//     var newAddress = prompt("Please enter " + newName + "'s address", "A dark dungeon");
-//     var newAge = prompt("Please enter " + newName + "'s age", "Way old");
-//     var newInterests = prompt("Please enter " + newName + "'s interests", "Potions, likes Draco, picks on Harry");
-//     if (newName == null || newAddress == null || newAge == null || newInterests == null) {
-//       console.log("Not enough information, try again");
-//       alert("Not enough information, try again");
-//     } else {
-//       listOfPeople.allPeople.addPerson(newName, newAddress, newAge, newInterests);
-//     }
-//   }
-//
-// });
 
 //----------------------------Generate <li> --------
 //This generates the list of people that match what the user is typing and outputs it
@@ -408,10 +345,6 @@ class PersonList {
 
   }
 
-  // addPerson(name, address, age, interests) {
-  //   this.allPeople.push(new Person(name + "\t" + address + "\t" + age + "\t" + interests + "\t<insert pic here>"));
-  // }
-
   setTitleConstraint(title) {
     this.titleConstraint = title;
   }
@@ -458,6 +391,3 @@ class PersonList {
   </body>
 
 </html>
-<!--
-Pollyanna Perkins\t144 EdBrook Ave, Springs, AZ\t24\tMountain Biker, Finger Knitter\t<insert pic here>\nWill Treaty\tHut in the Forest, Redmont Fief, Araluen\t45\tTop Ranger, likes coffee\t<insert pic here>\nHal Mikkelson\tRestaurant owned by the Araluen, Hallasholm, Skandia\t25\tBuilds ships and weapons\t<insert pic here>\nMadelyn\tCastle Araluen, Araluen\t18\tPrincess and secretly a fourth-year apprentice Ranger\t<insert pic here\n
--->
