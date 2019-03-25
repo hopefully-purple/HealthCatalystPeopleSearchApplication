@@ -1,79 +1,370 @@
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style> 
- /* make it look pleasing!*/  
-</style>
-</head> 
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> The People Search Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Lato|Merriweather|Noto+Sans+JP|Noto+Sans+TC|Noto+Serif|Old+Standard+TT|Open+Sans|Quicksand|Roboto+Condensed|Source+Serif+Pro" rel="stylesheet">
+<style>
+
+/*
+font-family: 'Open Sans', sans-serif; unsure
+font-family: 'Lato', sans-serif; not special
+font-family: 'Roboto Condensed', sans-serif; like big, don't like small
+font-family: 'Merriweather', serif; I reeeeeaaaallllyyy like this, choosing this, leaving the rest just in case.
+font-family: 'Noto Serif', serif;
+font-family: 'Quicksand', sans-serif;
+font-family: 'Noto Sans JP', sans-serif;
+font-family: 'Source Serif Pro', serif;
+font-family: 'Noto Sans TC', sans-serif;
+font-family: 'Old Standard TT', serif;
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+/*------------------*/
+#title {
+  font-size: 75px;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+}
+
+#checkBoxClass * {
+  display: inline;
+}
+
+/*------------------*/
+#checkBoxClass {
+  text-align: center;
+  font-size: 50px;
+  font-family: 'Merriweather', serif;
+}
+
+/*------------------*/
+ #chooseFileText {
+  text-align: center;
+  font-family: 'Merriweather', serif;
+}
+
+/*------------------*/
+h2 {
+  font-size: 50px;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+}
+
+/* #add {
+  font-size: 25px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  box-shadow: 2px 2px #d9d9d9;
+  float: right;
+  position: relative;
+  right: 225px;
+}
+
+#add:hover {
+  background-Color: #d9d9d9
+} */
+
+/*------------------*/
+#myInput {
+  /*background-image: url('/css/searchicon.png');*/
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  position: relative;
+  top: 0px; left: 350px;
+  font-family: 'Merriweather', serif;
+}
+
+/*------------------*/
+#myUL li {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  width: 40%;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li:hover {
+  background-color: #eee;
+}
+
+#searchButton {
+ float: right;
+ position: relative;
+  bottom: 8px; right: 340px;
+ padding: 6px 10px;
+ margin-top: 8px;
+ margin-right: 16px;
+ background: #ddd;
+ font-size: 32px;
+ border: none;
+ cursor: pointer;
+ display: block;
+}
+
+#searchButton:hover {
+   background: #ccc;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  /*width and height 120px*/
+  width: 47px;
+  height: 47px;
+  animation: spin 2s linear infinite;
+  float: right;
+  position: relative;
+  /*top 10px*/
+  right: 360px;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*------------------*/
+.boxed {
+  display: none;
+  border: 1px solid black ;
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin-bottom: 12px;
+  float: right;
+  position: absolute;
+  /* 445 by 650*/
+  top: 465px; left: 650px;
+  font-family: 'Merriweather', serif;
+}
+
+.boxed img {
+  /*100%*/
+  width: 95%;
+}
+.boxed div:first-child {
+  /*33%*/
+  width: 33%;
+  float: left;
+}
+
+.boxed div:2th-child {
+  float: right;
+  /* 66% */
+  width: 66%;
+}
+
+#interests {
+  padding: 10px;
+}
+
+.boxed div:last-child {
+  /* 100% */
+  width: 100%;
+  clear: both;
+}
+    </style>
+
+  </head>
+
 <body>
 
-<h1> Search for People!</h1>
-  
-  <h3 id="fileHeader"> Please enter in a list of people</h3>
-<input type="file" id="myFile">
-<button id="generateList"> Generate List! </button>
+<h1 id="title"> The People Search Application</h1>
 
-<p> Type in the name of the person you are looking for</p>
-<input type="text" id="myInput" onkeyup="getPeople()" placeholder="Search for names.." title="Type in a name">
-<div class="list">
-  <ul id="myUL" onclick="profile()">
+<div id="checkBoxClass">
+<input type="checkbox" id="myCheck" onclick="checkBoxFunction()"> <p id="readText">Read in a file!</p>
 </div>
-  
-<!--   <dialog id="listOfPeople"> </dialog>
-  <dialog id="personInfo"></dialog> -->
-  
-  <p>--------------------------------------------</p>
-  
+<div id="fileClass">
+<p id="chooseFileText" style="display:none"><input type="file" id="myFile"></p>
+</div>
+
+<h2>Search for a person!</h2>
+
+<input type="text" id="myInput" onkeyup="getPeople()" placeholder="Search for names.." title="Type in a name">
+    <button type="submit" id="searchButton"><i class="fa fa-search"></i></button>
+    <div class="loader"></div>
+    <!-- <button id="add"> + </button> -->
+<div class="list">
+  <ul id="myUL" >
+  </ul>
+</div>
+
+<div class="boxed">
+  <div>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAOVBMVEXk5ueutLepsLPo6uursbXJzc/p6+yvtbji5OWorrK2u77Z3N24vcDO0dPg4uPAxcfMz9HDx8rU19hwHDZQAAAFQklEQVR4nO2d25qrIAyFhUA9oVbf/2G31rYzbe0egaQEm/9q5q7rCyQxwrIoBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEE4IABQ9O3ULUzt5d8DMauZrFO61ubC/Idy41QdRSX050Yb9YLWje3zFwnQbcpbMbrpiqw1AljzVt5N5JixRrDvw/dLY52rRpjUDn1rHLsMJULh9D59F41Nn5tGmHbG767xnJdEGD0CuKJdVhIbzwheoqiq1D97N5W/vFVjm0kY+4AArug8JIYLzERiFSFwkZj69/9NjL5FIvd0A02kQqV4r1MYotbogmFdF2HyLvSvaMtYYoUgUKmab7YBhyFQqZJrEKFDCeG8Fdmu0+gsc4NpyYARTaHimU+rGk0gz9YGBjyBSjUMg9gjhpBlEDF34QLDnYgrUNV9akFPQIes0IzMgojwTPEMM4U9Ujvzg55Sa3oALPIinRlYBZFgkSpzSq3qAfRFyu0hyneGvwdjU6v6BYz4AnkV/VNJodAwUgioPekNzaitwa+GC4ZRRaRINLyGGZZCIKeaT5NKOSVTrCniM3ymihQ9Gy+FNOVwJrWwO1QKTWphd4BGoCj8IMdfpcfPNFTVgs8w6gsqfvzb+034dG3H77y/4OkJ973TXSGjJ+DjTzG+YBKF+v73BqNUSpRqOE2EkQ5DPcJrqk/yZobTIv2Ct2vHf0NKsEx5LdJZ4fnoJxXQT5twamhWsIs+q3K/gptrGJ76+oKTe6iPUBxDiDvLYLgLL6DtRHbH9q6gnd5jWAuvoDU2XAViVQyeaWYF5cYFpxHbKxj5lGUp/AGiZ1J8Xji9I1Igv477hZhrwNyGM29oY246T7w34Qq0wQk1D4FF+EKtc7irfiXENUJl5Bqx1MUA54/UP9oP7y6c9f3mTaBqfBx4yuwceIpLGPfGMb8ArgCMe5ywlB4ydcIqFrOo8U83MzPkuEB/gKJr6v840pU23/jdAOjtpu3eLG9s83cVvABQTWNTL8aQ68LUdV0O3QFME38Dp1PRTt3Z2nM3tRWcDqXuK4ANUv8mFOBqPXu2w+CaplxpGueG0c6rtZ9Xa7ZK59/eT9Y1SuvFenajEM4ZR5vSjV1b5bYr57C03VDW7wvhg9TFftfZbEx3L57Bjd7Vrj2gdQ4FBKC1TodPhecmYJj4NjmzvLH0j91rLF1XMRQJp3bY/bD0F6ZmZ6AMlVW4R4ZM7SY2exJgcvGL8xWtLIvVOj8elSS3gNWSeIbk88Udj7hxaJdUIxS7DLsjNTZtKoMM2GdIjqIxSRw9RmnxGt3nZznQkuWXbY3jZ2sHFP5T+0iM+uR7qROGTak32n2qz/FzzEfV+JkPDKD4zIZKHD4h0N8xHxGjqAsHVGHvPvHQtN9QgJhTCFgSKe9hQEdyC88TU9IJTLoFf0PU4QS8m6eC5jMR4NLvwTsUElkJpDh6A6mrxDPYEplFcAH3Yx9UpglRGMRzmhT3JzHAEzhxKPQboJ2XpvEMRMAgNXDxR7fJwHlgZJllbmCcCk/5wLsDjK3IOIIK4/oJlUESGtHrtGVaKH6IXKeM8+iNOGcC9O8BUBBlTQCs8+iVmO97cu1Hn4gIImQhMCKIWezChWBvvgwS6UpwOg2/ofVpAq/v0xh4kRDa2GSyC1Vwd0pjhkhDUOuW0SIN/Ngelf0xCaYLUMh2OrNJyMQml3K/EvBhoay2YZDfC5mDNQ0Bbq40pqt0+Btl5pVoQlIN7yHiK/41P69UqgJ8iWyts6L2Fbh924wz/goFQRAEQRAEQRAEQRCET/IP1+RU5rUCFhYAAAAASUVORK5CYII="/>
+
+  </div>
+  <div id="profileInfo">
+    <p id="name"> Name:  </p>
+    <p id="age"> Age:  </p>
+    <p id="address"> Address:  </p>
+  </div>
+  <div>
+      <p id="interests"> Interests: </p>
+  </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-  //This block reads in a file and is supposed to create a new PersonList Object
-  var input = document.getElementById("myFile");
-  var listOfPeople;
-  input.addEventListener("change", function () {
+
+//----------------------------Check Box--------
+function checkBoxFunction() {
+  var checkBox = document.getElementById("myCheck");
+  var text = document.getElementById("chooseFileText");
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+     text.style.display = "none";
+  }
+}
+
+//----------------------------Read in File--------
+//This block reads in a file and is supposed to create a new PersonList Object
+var input = document.getElementById("myFile");
+var listOfPeople = [];
+var workingList = [];
+input.addEventListener("change", function () {
   if (this.files && this.files[0]) {
     var myFile = this.files[0];
     var reader = new FileReader();
     reader.addEventListener('load', function (e) {
-      // if (reader) {
-      //   debugger;
-      // }
       //Here is where the PersonList object is created.
-      listOfPeople = new PersonList("" + e.target.result);
+      listOfPeople = new PersonList("" + e.target.result).allPeople;
     });
     reader.readAsBinaryString(myFile);
   }
 });
-  
-  //I don't know if I'll keep this button, but for now it helps me see the PersonList
-//object that was created.
-$("#generateList").click(function() {
-  console.log(listOfPeople);
-  });
-  
-  //This generates the list of people that match what the user is typing
+
+//----------------------------Add someone to the list --------
+// $("#add").click(function() {
+//   console.log(listOfPeople);
+//   var newName = prompt("Please enter a name", "Severus Snape");
+//   if (newName == null || newName == "") {
+//     console.log("User cancelled this prompt");
+//   } else {
+//     var newAddress = prompt("Please enter " + newName + "'s address", "A dark dungeon");
+//     var newAge = prompt("Please enter " + newName + "'s age", "Way old");
+//     var newInterests = prompt("Please enter " + newName + "'s interests", "Potions, likes Draco, picks on Harry");
+//     if (newName == null || newAddress == null || newAge == null || newInterests == null) {
+//       console.log("Not enough information, try again");
+//       alert("Not enough information, try again");
+//     } else {
+//       listOfPeople.allPeople.addPerson(newName, newAddress, newAge, newInterests);
+//     }
+//   }
+//
+// });
+
+//----------------------------Generate <li> --------
+//This generates the list of people that match what the user is typing and outputs it
 function getPeople() {
-  var input, filter, ul, li, i, a, workingList;
+  var input, filter, ul, li, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toLowerCase();
   ul = document.getElementById("myUL");
-  li = document.createElement("li");
-  // if (filter) {
-  //   debugger;
-  // }
-  listOfPeople.setTitleConstraint(filter);
-//For each person in listOfPeople, create a new list item on the document
-  for(i = 0; i < listOfPeople.select().length; i++) {
-    workingList = listOfPeople.select();
-    li.appendChild(document.createTextNode(workingList[i].getName()));
+
+  workingList = [];
+
+  for(i = 0; i < listOfPeople.length; i++) {
+    if (listOfPeople[i].name.toLowerCase().includes(filter)) {
+      workingList.push(listOfPeople[i].name);
+    }
+  }
+  ul.innerHTML = "";
+  for(i = 0; i < workingList.length; i++) {
+    li = document.createElement("li");
+    li.setAttribute("id" , "element"+ i);
+    li.innerText = workingList[i];
     ul.appendChild(li);
   }
 }
- 
-  //-------------------------------------Object Classes------------------------
- class Person {
+
+//----------------------------Profile Functions--------
+
+$(document).keypress(function (e) {
+    if (event.key == "Enter") {
+        if(workingList) {
+          displayProfile(workingList[0]);
+        }
+    }
+});
+
+$("body").on("click", "#myUL li", function() {
+ displayProfile($(this).text());
+});
+
+$("#searchButton").click(function() {
+  $("#searchButton").css("display", "none");
+  $(".loader").css("display", "block");
+  setTimeout(function(){ displayProfile(workingList[0]); }, 3000);
+
+});
+
+function waitSeconds(iMilliSeconds) {
+    var counter= 0
+        , start = new Date().getTime()
+        , end = 0;
+    while (counter < iMilliSeconds) {
+        end = new Date().getTime();
+        counter = end - start;
+    }
+}
+
+function displayProfile(person) {
+  $("#searchButton").css("display", "block");
+  $(".loader").css("display", "none");
+  $(".boxed").css("display", "block");
+
+  var nme = document.getElementById("name");
+  var yrs = document.getElementById("age");
+  var addrss = document.getElementById("address");
+  var intrsts = document.getElementById("interests");
+
+ nme.innerHTML = "";
+ yrs.innerHTML = "";
+ addrss.innerHTML = "";
+ intrsts.innerHTML = "";
+ var i;
+ for (i = 0; i < listOfPeople.length; i++) {
+   if (listOfPeople[i].name.includes(person)) {
+     var n = document.createTextNode("Name: " + listOfPeople[i].name);
+     nme.appendChild(n);
+     var a = document.createTextNode("Age: " + listOfPeople[i].age);
+     yrs.appendChild(a);
+     var ad = document.createTextNode("Address: " + listOfPeople[i].address);
+     addrss.appendChild(ad);
+     var i = document.createTextNode("Interests: " + listOfPeople[i].interests);
+     intrsts.appendChild(i);
+     break;
+   }
+ }
+}
+
+//-------------------------------------OBJECT CLASSES--------------------------
+class Person {
+  //Take in a string of attributes and separate them by tabs into an array
   constructor (attributes) {
     var attr = attributes.split("\t");
-
     this.name = attr[0];
     this.address = attr[1];
     this.age = attr[2];
@@ -105,6 +396,7 @@ class PersonList {
     this.allPeople = [];
     var lineNum = 0;
     var next = this.people.shift();
+
     while (next) {
       lineNum++;
       this.allPeople.push(new Person(next));
@@ -116,10 +408,15 @@ class PersonList {
 
   }
 
+  // addPerson(name, address, age, interests) {
+  //   this.allPeople.push(new Person(name + "\t" + address + "\t" + age + "\t" + interests + "\t<insert pic here>"));
+  // }
+
   setTitleConstraint(title) {
     this.titleConstraint = title;
   }
 
+//Select Person objects that contain the titleConstraint and return that list
   select() {
     var people = [];
     var items = this.allPeople;
@@ -135,7 +432,32 @@ class PersonList {
   }
 
 }
-   
+
+
+//--------------------------TESTING AND DEBUGGING!!-------------------------------
+
+// var p1 = new Person("Sugar\t1779 W Eagle Valley, Springs, AZ\t70\tSnuggles and stealing Captain's food\t<insert pic>");
+// console.log(p1.getName());
+// console.log(p1.getAge());
+//
+// //debugger;
+// var list = new PersonList("Pollyanna Perkins\t144 EdBrook Ave, Springs, CA\t24\tMountain Biker, Finger Knitter\t<insert pic here>\n"
+//                 + "Will Treaty\tHut in the Forest, Redmont Fief, Araluen\t45\tTop Ranger, likes coffee\t<insert pic here>\n"
+//                 + "Hal Mikkelson\tRestaurant owned by the Araluen, Hallasholm, Skandia\t25\tBuilds ships and weapons\t<insert pic here>\n"
+//                 + "Madelyn\tCastle Araluen, Araluen\t18\tPrincess and secretly a fourth-year apprentice Ranger\t<insert pic here\n");
+//
+//
+// list.setTitleConstraint("Will");
+// console.log(list.select());
+// list.setTitleConstraint("ll");
+// console.log(list.select());
+// list.setTitleConstraint("M");
+// console.log(list.select());
 </script>
-</body>
+
+  </body>
+
 </html>
+<!--
+Pollyanna Perkins\t144 EdBrook Ave, Springs, AZ\t24\tMountain Biker, Finger Knitter\t<insert pic here>\nWill Treaty\tHut in the Forest, Redmont Fief, Araluen\t45\tTop Ranger, likes coffee\t<insert pic here>\nHal Mikkelson\tRestaurant owned by the Araluen, Hallasholm, Skandia\t25\tBuilds ships and weapons\t<insert pic here>\nMadelyn\tCastle Araluen, Araluen\t18\tPrincess and secretly a fourth-year apprentice Ranger\t<insert pic here\n
+-->
